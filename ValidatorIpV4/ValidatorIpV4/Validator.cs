@@ -7,12 +7,22 @@ using System.Text.RegularExpressions;
 
 namespace ValidatorIpV4
 {
-
+    /// <summary>
+    /// класс, проверяющий валидность IP
+    /// </summary>
     public class Validator
     {
+        /// <summary>
+        /// паттерн IP
+        /// </summary>
         private readonly static string _IPv4Pattern= @"(\d{1,3}\.){3}\d{1,3}$";
-        
 
+
+        /// <summary>
+        /// проверка IP адреса
+        /// </summary>
+        /// <param name="IP">строка IP из IPtextBox</param>
+        /// <returns>валидный ли IP</returns>
         public static bool ValidateIP(string? IP)
         {
             Regex regex = new Regex(_IPv4Pattern);
@@ -28,9 +38,15 @@ namespace ValidatorIpV4
                 
         }
 
+
+        /// <summary>
+        /// преобразует строку IP в массив чисел из IP для проверки их на максимальное значение
+        /// </summary>
+        /// <param name="IP">строка IP из IPtextBox</param>
+        /// <returns>массив чисел из IP значений </returns>
         private static int[] GetValuesOfIP(string? IP)
         {
-            
+            //4 не магическое число, а число значений в айпи адресе
             string[] values = new string[4];
             for (int j = 0; j < 4; j++)
             {
@@ -61,6 +77,12 @@ namespace ValidatorIpV4
             return rightValues;
         }
 
+
+        /// <summary>
+        /// проверяет каждое число на предел (255)
+        /// </summary>
+        /// <param name="values">массив чисел из IP значений</param>
+        /// <returns>валидный ли IP</returns>
         private static bool CheckToMaximumAllowableValue(int[] values)
         {
             bool result = true;

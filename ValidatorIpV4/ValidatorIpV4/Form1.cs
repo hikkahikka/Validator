@@ -8,12 +8,16 @@ namespace ValidatorIpV4
 
         }
 
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
+
+        /// <summary>
+        /// действие при нажатии кнопки
+        /// </summary>
+        
         private void OnCheckButtonClick(object sender, EventArgs e)
         {
             string? IP = IPtextBox.Text;
