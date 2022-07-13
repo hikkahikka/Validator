@@ -15,7 +15,9 @@ namespace ValidatorIpV4
         /// <summary>
         /// паттерн IP
         /// </summary>
-        private readonly static string _IPv4Pattern= @"(\d{1,3}\.){3}\d{1,3}$";
+        private readonly static string _IPv4Pattern = @"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[1-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[1-4][0-9]|25[0-5])$";
+
+
 
 
         /// <summary>
@@ -30,7 +32,7 @@ namespace ValidatorIpV4
 
             if (matches.Count == 1)
             {
-                return CheckToMaximumAllowableValue(GetValuesOfIP(IP));
+                return true;
 
             }
             
@@ -39,65 +41,6 @@ namespace ValidatorIpV4
         }
 
 
-        /// <summary>
-        /// преобразует строку IP в массив чисел из IP для проверки их на максимальное значение
-        /// </summary>
-        /// <param name="IP">строка IP из IPtextBox</param>
-        /// <returns>массив чисел из IP значений </returns>
-        private static int[] GetValuesOfIP(string? IP)
-        {
-            //4 не магическое число, а число значений в айпи адресе
-            string[] values = new string[4];
-            for (int j = 0; j < 4; j++)
-            {
-                for (int i = 0;;)
-                {
-
-                    if (String.IsNullOrEmpty(IP))
-                        break;
-                    if (IP[i] != '.')
-                    {
-                        values[j] += IP[i];
-                        IP=IP.Remove(i,1);
-                    }
-                    else
-                    {
-                        IP = IP.Remove(i,1);
-
-                        break;
-                    }
-                }
-            }
-            int[] rightValues = new int [4];
-            for (int i = 0; i < rightValues.Length;i++)
-            {
-                rightValues[i] = Convert.ToInt32(values[i]);
-            }
-
-            return rightValues;
-        }
-
-
-        /// <summary>
-        /// проверяет каждое число на предел (255)
-        /// </summary>
-        /// <param name="values">массив чисел из IP значений</param>
-        /// <returns>валидный ли IP</returns>
-        private static bool CheckToMaximumAllowableValue(int[] values)
-        {
-            bool result = true;
-
-            for(int i = 0; i < values.Length; i++)
-            {
-                if (values[i] > 255)
-                {
-                    result = false;
-                    break;
-                }
-                  
-            }
-
-            return result;
-        }
+       
     }
 }
